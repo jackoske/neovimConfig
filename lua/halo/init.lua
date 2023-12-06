@@ -1,5 +1,6 @@
 require("halo.set")
 require("halo.remap")
+require("halo.packer")
 
 local augroup = vim.api.nvim_create_augroup
 local TheHaloGroup = augroup('TheHalo', {})
@@ -10,6 +11,7 @@ local yank_group = augroup('HighlightYank', {})
 function R(name)
     require("plenary.reload").reload_module(name)
 end
+vim.cmd([[autocmd VimEnter * NERDTreeToggle]])
 
 autocmd('TextYankPost', {
     group = yank_group,

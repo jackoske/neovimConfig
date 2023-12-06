@@ -12,6 +12,14 @@ return require('packer').startup(function(use)
 	  -- or                            , branch = '0.1.x',
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
+  use {
+    'preservim/nerdtree',
+    requires = 'ryanoasis/vim-devicons', -- Optional: For icons
+    config = function()
+        vim.g.NERDTreeShowHidden = 1 -- Show hidden files
+        -- Any additional configuration for NERDTree can go here
+    end
+  }
 
   use({
 	  'rose-pine/neovim',
