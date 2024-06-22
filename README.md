@@ -1,5 +1,6 @@
 # Neovim Configuration with Lua
 attributes to [ @Primeagen](https://github.com/ThePrimeagen)
+
 inparticular this video but also just inspiring me:
 https://www.youtube.com/watch?v=w7i4amO_zaE
 
@@ -121,12 +122,13 @@ This repository contains my Neovim configuration, written in Lua. The setup leve
     ```bash
     nvim +PackerSync
     ```
-
+or use command in nvim:
+```bash
 :PackerSync
+```
+------------------------------------
 
-
-
-REMAPPINGS
+## REMAPPINGS
 ```
 <leader> = spacebar
 <leader> u = undo tree
