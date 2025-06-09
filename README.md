@@ -51,7 +51,7 @@ A modern, modular Neovim configuration focused on development productivity.
 
 2. **Clone this config:**
    ```bash
-   git clone git@github.com:jackoske/neovimConfig.git ~/.config/nvim
+   git clone git@github.com:jackoske/neotidy.git ~/.config/nvim
    ```
 
 3. **Start Neovim:**
