@@ -13,14 +13,46 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
--- Wayland clipboard integration
-vim.cmd([[
-  augroup wl_clipboard
-    autocmd!
-    autocmd FocusLost * call system('wl-copy --trim-newline', @+)
-    autocmd FocusGained * let @+ = system('wl-paste -n')
-  augroup END
-]])
+-- Platform-agnostic clipboard integration
+local function setup_clipboard_integration()
+  -- Detect display server and OS
+  local wayland_display = os.getenv("WAYLAND_DISPLAY")
+  local xdg_session_type = os.getenv("XDG_SESSION_TYPE")
+  local is_wayland = wayland_display ~= nil or xdg_session_type == "wayland"
+  local is_macos = vim.fn.has("macunix") == 1
+  
+  if is_macos then
+    -- macOS clipboard integration
+    vim.cmd([[
+      augroup system_clipboard
+        autocmd!
+        autocmd FocusLost * call system('pbcopy', @+)
+        autocmd FocusGained * let @+ = system('pbpaste')
+      augroup END
+    ]])
+  elseif is_wayland then
+    -- Wayland clipboard integration
+    vim.cmd([[
+      augroup wl_clipboard
+        autocmd!
+        autocmd FocusLost * call system('wl-copy --trim-newline', @+)
+        autocmd FocusGained * let @+ = system('wl-paste -n')
+      augroup END
+    ]])
+  else
+    -- X11 clipboard integration
+    vim.cmd([[
+      augroup x11_clipboard
+        autocmd!
+        autocmd FocusLost * call system('xclip -selection clipboard', @+)
+        autocmd FocusGained * let @+ = system('xclip -selection clipboard -o')
+      augroup END
+    ]])
+  end
+end
+
+-- Initialize clipboard integration
+setup_clipboard_integration()
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
