@@ -29,8 +29,52 @@ return {
                   vim.cmd("bd!") -- Close the buffer after opening Zathura
                 end)
               else
-                -- Custom handler to open files in new buffers
+                -- Open file and focus on it
                 require("neo-tree.sources.filesystem.commands").open(state)
+                -- Focus on the newly opened file
+                vim.schedule(function()
+                  local current_win = vim.api.nvim_get_current_win()
+                  local wins = vim.api.nvim_list_wins()
+                  for _, win in ipairs(wins) do
+                    if win ~= current_win then
+                      local buf = vim.api.nvim_win_get_buf(win)
+                      local buf_name = vim.api.nvim_buf_get_name(buf)
+                      if buf_name == path then
+                        vim.api.nvim_set_current_win(win)
+                        break
+                      end
+                    end
+                  end
+                end)
+              end
+            end,
+            -- Add Enter key mapping for the same behavior
+            ["<CR>"] = function(state)
+              local node = state.tree:get_node()
+              local path = node:get_id()
+              if path:match("%.pdf$") then
+                vim.fn.jobstart({ "zathura", path }, { detach = true })
+                vim.schedule(function()
+                  vim.cmd("bd!") -- Close the buffer after opening Zathura
+                end)
+              else
+                -- Open file and focus on it
+                require("neo-tree.sources.filesystem.commands").open(state)
+                -- Focus on the newly opened file
+                vim.schedule(function()
+                  local current_win = vim.api.nvim_get_current_win()
+                  local wins = vim.api.nvim_list_wins()
+                  for _, win in ipairs(wins) do
+                    if win ~= current_win then
+                      local buf = vim.api.nvim_win_get_buf(win)
+                      local buf_name = vim.api.nvim_buf_get_name(buf)
+                      if buf_name == path then
+                        vim.api.nvim_set_current_win(win)
+                        break
+                      end
+                    end
+                  end
+                end)
               end
             end,
           },
@@ -55,14 +99,6 @@ return {
           ["<space>"] = false,
           ["<esc>"] = "cancel",
           ["P"] = { "toggle_preview", config = { use_float = true } },
-        },
-      },
-      event_handlers = {
-        {
-          event = "file_opened",
-          handler = function(_)
-            vim.cmd("Neotree reveal")
-          end
         },
       },
     },
