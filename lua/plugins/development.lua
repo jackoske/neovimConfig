@@ -64,18 +64,42 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       local lint = require 'lint'
-      lint.linters_by_ft = {
-        markdown = { 'markdownlint' },
-        javascript = { 'eslint_d' },
-        typescript = { 'eslint_d' },
-        python = { 'pylint' },
-      }
+      
+      -- Helper function to check if a command exists
+      local function command_exists(cmd)
+        return vim.fn.executable(cmd) == 1
+      end
+      
+      -- Only configure linters that are actually available
+      local available_linters = {}
+      
+      -- Check for markdownlint
+      if command_exists('markdownlint') then
+        available_linters.markdown = { 'markdownlint' }
+      end
+      
+      -- Check for eslint_d
+      if command_exists('eslint_d') then
+        available_linters.javascript = { 'eslint_d' }
+        available_linters.typescript = { 'eslint_d' }
+      end
+      
+      -- Check for pylint (commented out since it's not installed)
+      -- if command_exists('pylint') then
+      --   available_linters.python = { 'pylint' }
+      -- end
+      
+      lint.linters_by_ft = available_linters
 
       local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
       vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufReadPost', 'InsertLeave' }, {
         group = lint_augroup,
         callback = function()
-          lint.try_lint()
+          -- Only try to lint if we have linters configured for this filetype
+          local ft = vim.bo.filetype
+          if available_linters[ft] then
+            lint.try_lint()
+          end
         end,
       })
     end,
