@@ -35,6 +35,12 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Split window commands
+vim.keymap.set('n', '<leader>sh', ':split<CR>', { desc = '[S]plit [H]orizontally' })
+vim.keymap.set('n', '<leader>sv', ':vsplit<CR>', { desc = '[S]plit [V]ertically' })
+vim.keymap.set('n', '<leader>se', '<C-w>=', { desc = '[S]plit [E]qualize' })
+vim.keymap.set('n', '<leader>sx', ':close<CR>', { desc = '[S]plit [X]close' })
+
 -- [[ Tab management ]]
 -- Create a new tab
 vim.keymap.set('n', '<leader>tn', ':tabnew<CR>', { desc = '[T]ab [N]ew' })

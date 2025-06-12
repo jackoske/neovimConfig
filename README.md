@@ -107,6 +107,15 @@ Add plugins to the appropriate file in `lua/plugins/`:
 | `<Esc>` | Clear search highlights |
 | `<C-h/j/k/l>` | Navigate windows |
 
+### Window Splitting
+| Key | Action |
+|-----|--------|
+| `<leader>sh` | Split horizontally |
+| `<leader>sv` | Split vertically |
+| `<leader>se` | Equalize split windows |
+| `<leader>sx` | Close current split |
+| `<C-h/j/k/l>` | Navigate between splits |
+
 ### File Management
 | Key | Action |
 |-----|--------|
