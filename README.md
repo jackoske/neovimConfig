@@ -110,18 +110,11 @@ Add plugins to the appropriate file in `lua/plugins/`:
 ### Window Splitting
 | Key | Action |
 |-----|--------|
-| `<leader>sh` | Split horizontally |
-| `<leader>sv` | Split vertically |
-| `<leader>se` | Equalize split windows |
-| `<leader>sx` | Close current split |
+| `<leader>wh` | Split horizontally |
+| `<leader>wv` | Split vertically |
+| `<leader>we` | Equalize split windows |
+| `<leader>wx` | Close current split |
 | `<C-h/j/k/l>` | Navigate between splits |
-
-### File Management
-| Key | Action |
-|-----|--------|
-| `<leader>e` | Toggle file explorer |
-| `<C-e>` | Toggle file explorer (VSCode style) |
-| `\\` | Reveal current file in explorer |
 
 ### Fuzzy Finding (Telescope)
 | Key | Action |
@@ -131,6 +124,21 @@ Add plugins to the appropriate file in `lua/plugins/`:
 | `<leader>sb` | Find buffers |
 | `<leader>sh` | Help tags |
 | `<leader>sk` | Keymaps |
+| `<leader>sw` | Search current word |
+| `<leader>sd` | Search diagnostics |
+| `<leader>sr` | Resume last search |
+| `<leader>s.` | Recent files |
+| `<leader>s/` | Search in open files |
+| `<leader>sn` | Search Neovim files |
+| `<leader>/` | Fuzzy find in current buffer |
+| `<leader><leader>` | Find existing buffers |
+
+### File Management
+| Key | Action |
+|-----|--------|
+| `<leader>e` | Toggle file explorer |
+| `<C-e>` | Toggle file explorer (VSCode style) |
+| `\\` | Reveal current file in explorer |
 
 ### Buffer/Tab Management
 | Key | Action |
