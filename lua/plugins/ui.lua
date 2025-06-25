@@ -29,7 +29,8 @@ return {
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
 
-      -- Telescope keybinds moved to keymaps.lua
+      -- Trigger event to notify that Telescope is ready
+      vim.api.nvim_exec_autocmds('User', { pattern = 'TelescopeSetup' })
     end,
   },
 
